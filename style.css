@@ -1,6 +1,5 @@
 
 #canvas {
- /*width: 1000px;
- height: 1000px;*/
- background-color: grey;
+ cursor: none;
+ background-color: rgb(39, 38, 38);
 }

@@ -39,6 +39,18 @@ function drawStars(stars) {
   });
 }
 
+function drawCursor(ctx,x,y){
+
+ctx.beginPath();
+    ctx.arc(x, y, 3, 0, 2 * Math.PI);
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.strokeStyle = "white";
+    ctx.stroke();
+
+}
+
+
 function clearCanvas(canvas, ctx) {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -49,22 +61,31 @@ canvas.addEventListener("mousemove", function(event) {
   
   clearCanvas(canvas, ctx);
 	drawStars(stars);
-    
+  
   if (foundStar) {
   	console.log("Found a star!");
     ctx.beginPath();
-    ctx.arc(mouseLocation.x, mouseLocation.y, 20, 0, 2 * Math.PI);
-    ctx.strokeStyle = foundStar.colour;
+    ctx.lineWidth = 5;
+    ctx.shadowBlur = 50;
+    ctx.shadowColor = "white";
+    ctx.arc(mouseLocation.x, mouseLocation.y, 50, 0, 2 * Math.PI);
+    ctx.strokeStyle = "white";
     ctx.stroke();
-   
+    ctx.shadowBlur = 0;
+    ctx.stroke()
 
 
-  } 
+  } else{
+    drawCursor(ctx,mouseLocation.x, mouseLocation.y);
+
+  }
 const value = document.getElementById("value")
 value.textContent = `${mouseLocation.x}, ${mouseLocation.y - 0.125}`;
 //console.log(mouseLocation.x,mouseLocation.y);
 
 });
+
+
 
 
 drawStars(stars);
