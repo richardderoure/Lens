@@ -1,5 +1,18 @@
 
 #canvas {
  cursor: none;
- background-color: rgb(39, 38, 38);
+ background-color: rgb(44, 44, 44);
+
+}
+
+
+
+body {
+background-color: rgb(243,243,243);
+font-family: 'Arimo', sans-serif;
+font-size: 22px;
+
+
+
+
 }

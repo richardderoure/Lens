@@ -1,9 +1,12 @@
 console.log("loaded");
 
-const canvas = document.getElementById("canvas");
-canvas.width = 1200;
-canvas.height = 675;
 
+const canvas = document.getElementById("canvas");
+function setUpCanvas(canvas){
+canvas.width = 900;
+canvas.height = 500;
+canvas.style = "border:5px solid white;"
+}
 const ctx = canvas.getContext("2d");
 
 function getMouseCoordinates(canvas, event) {
@@ -47,7 +50,6 @@ ctx.beginPath();
     ctx.fill();
     ctx.strokeStyle = "white";
     ctx.stroke();
-
 }
 
 
@@ -65,10 +67,10 @@ canvas.addEventListener("mousemove", function(event) {
   if (foundStar) {
   	console.log("Found a star!");
     ctx.beginPath();
-    ctx.lineWidth = 5;
+    ctx.lineWidth = 3;
     ctx.shadowBlur = 50;
     ctx.shadowColor = "white";
-    ctx.arc(mouseLocation.x, mouseLocation.y, 50, 0, 2 * Math.PI);
+    ctx.arc(mouseLocation.x, mouseLocation.y, 40, 0, 2 * Math.PI);
     ctx.strokeStyle = "white";
     ctx.stroke();
     ctx.shadowBlur = 0;
@@ -79,13 +81,13 @@ canvas.addEventListener("mousemove", function(event) {
     drawCursor(ctx,mouseLocation.x, mouseLocation.y);
 
   }
-const value = document.getElementById("value")
-value.textContent = `${mouseLocation.x}, ${mouseLocation.y - 0.125}`;
+//const value = document.getElementById("value")
+//value.textContent = `${mouseLocation.x}, ${mouseLocation.y - 0.125}`;
 //console.log(mouseLocation.x,mouseLocation.y);
 
 });
 
 
 
-
+setUpCanvas(canvas);
 drawStars(stars);
