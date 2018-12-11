@@ -1,5 +1,14 @@
 console.log("loaded");
 
+// Math values and units etc
+
+G = 6.6726*10^-11; // m^3/kg s^2
+c = 2.99792458*10^8; //m/s
+Msun = 1.989*10^30; //kg
+parsec = 3.0856*10^16; //m
+ly = 3.26; //parsec
+sec2rad = Math.PI/(180*3600); //sec2rad
+
 
 const canvas = document.getElementById("canvas");
 function setUpCanvas(canvas){
@@ -85,8 +94,34 @@ canvas.addEventListener("mousemove", function(event) {
 //value.textContent = `${mouseLocation.x}, ${mouseLocation.y - 0.125}`;
 //console.log(mouseLocation.x,mouseLocation.y);
 
-});
 
+
+
+});
+/*
+const sourcePos = [
+
+  {
+    
+    sourcexy: [mouseLocation_.x, mouseLocation_.y],
+    mass: foundStar.mass,
+    distLens: foundStar.dl,
+}
+  ];
+
+b = (sourcexy[1]^2+source[2]^2)^(1/2);
+//if b
+
+ds = 1 * parsec * 10^9;
+dl = distLens * parsec * 10^9;
+u = 4 * Msun * Math.abs(ds-dl) * G * mass / (ds * dl * c * c);
+t1 = (1 + (1 + 4 * u / (b * b))^(1/2))/2;
+t2 = (1 - (1 + 4 * u / (b * b))^(1/2))/2;
+
+image1 = t1 * sourcexy;
+image2 = t2 * sourcexy;
+images = join[image1, image2];
+*/
 
 
 setUpCanvas(canvas);

@@ -1,7 +1,16 @@
 
 
 const stars = [
-	{
+  {
+  	x: 450,
+    y: 250,
+    radius: 10,
+    colour: "red",
+    mass: 5,
+    dS: 10,
+    dL: 10,
+  },
+	/*{
   	x: Math.floor(Math.random()*(875-25+1)+25),
     y: Math.floor(Math.random()*(475-25+1)+25),
     radius: 20,
@@ -60,5 +69,5 @@ const stars = [
     mass: 5,
     dS: 10,
     dL: 10,
-  },
+  },*/
 ];
