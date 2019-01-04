@@ -4,7 +4,7 @@ const stars = [
   {
   	x: 450,
     y: 250,
-    radius: 10,
+    radius: 5,
     colour: "red",
     mass: 5,
     dS: 10,
