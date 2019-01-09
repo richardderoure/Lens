@@ -52,14 +52,14 @@ function drawStars(stars) {
   	//ctx.stroke();
   });
 
-  ctx.beginPath();
-  ctx.strokeStyle = "violet"
-  ctx.lineWidth = 1;
-  ctx.arc(450, 250, 100, 0, 2 * Math.PI);
-  ctx.stroke();
 }
 
+
+
+
 function drawCursor(ctx,x,y){
+
+  
   var px, py, cx, cy;
   var dx, dy, dd, a, b, t, ta, tb;
   var radius = 20;
@@ -68,6 +68,8 @@ function drawCursor(ctx,x,y){
   py = canvas.height * .5;
   cx = x;
   cy = y;
+
+
 
   dx = cx - px;
   dy = cy - py;
@@ -81,22 +83,59 @@ function drawCursor(ctx,x,y){
   t = b + a
   tb = { x:radius * -Math.sin(t), y:radius * Math.cos(t) };
 
-  // draw points
-  ctx.beginPath();
-  ctx.arc(cx + ta.x, cy + ta.y, 2, 0, Math.PI * 2);
-  ctx.arc(cx + tb.x, cy + tb.y, 2, 0, Math.PI * 2);
-  ctx.fillStyle = '#ff0000';
-  ctx.fill();
-  ctx.closePath();
-  ctx.setLineDash([5, 5]);/*dashes are 5px and spaces are 3px*/
 
+
+    
+
+//additional circle mirrorer
+
+   /* ctx.beginPath();
+    ctx.arc(900-x, 500-y, 20, 0, 2 * Math.PI);
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.strokeStyle = "white";
+    ctx.stroke();
+  */
+
+// add Image circles
+Ssep = 0.01 * Math.round(Math.sqrt(Math.pow(450-x, 2)+Math.pow(250-y, 2)));
+Ipos = 100 * 0.5*(Ssep + Math.sqrt((Ssep*Ssep)+4));
+Ineg = 100 * 0.5*(Ssep - Math.sqrt((Ssep*Ssep)+4));
+
+//also check if in einstein radius
+ 
+if (Ssep >= 0.01*30){
+
+    ctx.beginPath();
+    console.log(y-py);
+    ctx.arc(px + Ipos * Math.cos(b),py + Ipos * Math.sin(b), Math.abs(Math.sin(Math.atan2(20,x-px))*(Ssep+Ipos)), 0, 2 * Math.PI);
+    ctx.fillStyle = "orange";
+    ctx.fill();
+  
+  
+
+    ctx.beginPath();    
+    ctx.arc(px + Ineg * Math.cos(b),py + Ineg * Math.sin(b), Math.abs(Math.sin(Math.atan2(-20,x-px))*(Ssep+Ineg)), 0, 2 * Math.PI);
+    ctx.fillStyle = "orange";
+    ctx.fill();
+
+//draw filler circle
+
+ctx.beginPath();    
+    ctx.arc((px + Ipos * Math.cos(b) + px + Ineg * Math.cos(b))/2,(py + Ineg * Math.sin(b) + py + Ipos * Math.sin(b))/2, (Ipos - Ineg)/2, 0, 2 * Math.PI);
+    ctx.fillStyle = "rgb(44, 44, 44)";
+    ctx.fill();
+    
+    
+  ctx.setLineDash([3, 15]);/*dashes are 5px and spaces are 10px*/
+/*
   // draw lines
   ctx.beginPath();
   ctx.moveTo(px, py);
   ctx.lineTo(cx + ta.x, cy + ta.y);
   ctx.moveTo(px, py);
   ctx.lineTo(cx + tb.x, cy + tb.y);
-  ctx.strokeStyle = '#ccc';
+  ctx.strokeStyle = 'grey';
   ctx.stroke();
   ctx.closePath();
 
@@ -131,28 +170,107 @@ function drawCursor(ctx,x,y){
     ctx.stroke();
    
 //remove dash
-
-    ctx.setLineDash([0, 0]);/*dashes are 5px and spaces are 3px*/
-
-
-
-
-    //draw cursor circle
-    ctx.beginPath();
-    ctx.arc(x, y, 20, 0, 2 * Math.PI);
-    ctx.fillStyle = "white";
-    ctx.fill();
-    ctx.strokeStyle = "white";
-    ctx.stroke();
-
-//additional circle mirrorer
-    /*ctx.beginPath();
-    ctx.arc(900-x, 500-y, 20, 0, 2 * Math.PI);
-    ctx.fillStyle = "white";
-    ctx.fill();
-    ctx.strokeStyle = "white";
-    ctx.stroke();
 */
+    ctx.setLineDash([0, 0]);/*dashes are 5px and spaces are 3px*/ 
+
+   
+} else {
+
+  ctx.beginPath();
+  ctx.strokeStyle = "orange"
+  ctx.lineWidth = 30;
+  ctx.arc(x, y, 100, 0, 2 * Math.PI);
+  ctx.stroke();
+
+  //draw filler circle
+
+ctx.beginPath();    
+ctx.arc((px + Ipos * Math.cos(b) + px + Ineg * Math.cos(b))/2,(py + Ineg * Math.sin(b) + py + Ipos * Math.sin(b))/2, (Ipos - Ineg)/2, 0, 2 * Math.PI);
+ctx.fillStyle = "rgb(44, 44, 44)";
+ctx.fill();
+
+
+};
+
+    
+
+
+  // draw points
+  ctx.beginPath();
+  ctx.arc(cx + ta.x, cy + ta.y, 2, 0, Math.PI * 2);
+  ctx.arc(cx + tb.x, cy + tb.y, 2, 0, Math.PI * 2);
+  ctx.fillStyle = 'red';
+  ctx.fill();
+  ctx.closePath();
+
+    drawStars(stars);
+
+
+  ctx.beginPath();
+  ctx.strokeStyle = "violet"
+  ctx.lineWidth = 1;
+  ctx.arc(450, 250, 100, 0, 2 * Math.PI);
+  ctx.stroke();
+
+
+//AVOID AREA
+ctx.beginPath();
+ctx.moveTo(900,500);
+ctx.lineTo(0,0);
+ctx.moveTo(0,500);
+ctx.lineTo(900,0);
+ctx.strokeStyle = 'teal';
+ctx.setLineDash([5, 25]);
+ctx.stroke();
+ctx.closePath();
+ctx.setLineDash([0, 0]);
+
+
+
+//attempt to find tangent of images
+  /*
+    var px1, py1, cx1, cy1;
+    var dx1, dy1, dd1, a1, b1, t1, ta1, tb1;
+    var radius1 = 20;
+  
+    px1 = canvas.width * .5;
+    py1 = canvas.height * .5;
+    cx1 = px + Ipos * Math.cos(b);
+    cy1 = py + Ipos * Math.sin(b);
+  
+    dx1 = cx - px;
+    dy1 = cy - py;
+    dd1 = Math.sqrt(dx1 * dx1 + dy1 * dy1);
+    a1 = Math.asin(radius1 / dd1);
+    b1 = Math.atan2(dy1, dx1);
+    
+    t1 = b1 - a1
+    ta1 = { x:radius1 * Math.sin(t1), y:radius1 * -Math.cos(t1) };
+    
+    t1 = b1 + a1
+    tb1 = { x:radius1 * -Math.sin(t1), y:radius1 * Math.cos(t1) };
+  
+    //draw dots of image tangents
+    ctx.beginPath();
+    ctx.arc(cx1 + ta1.x, cy1 + ta1.y, 2, 0, Math.PI * 2);
+    ctx.arc(cx1 + tb1.x, cy1 + tb1.y, 2, 0, Math.PI * 2);
+    ctx.fillStyle = '#ff0000';
+    ctx.fill();
+    ctx.closePath();
+
+*/
+
+
+
+//draw cursor circle
+ctx.beginPath();
+ctx.arc(x, y, 20, 0, 2 * Math.PI);
+ctx.fillStyle = "grey";
+ctx.fill();
+ctx.strokeStyle = "grey";
+ctx.stroke();
+
+drawStars(stars);
 
 
 
@@ -265,7 +383,7 @@ function drawLens(ctx,x , y) {
 
 const value = document.getElementById("value")
 value.textContent = `${mouseLocation.x}, ${Math.round(mouseLocation.y)}`;
-console.log(mouseLocation.x,mouseLocation.y);
+//console.log(mouseLocation.x,mouseLocation.y);
 
 const value2 = document.getElementById("value2")
 value2.textContent = Math.round(Math.sqrt(Math.pow(450-mouseLocation.x, 2)+Math.pow(250-mouseLocation.y, 2)));
